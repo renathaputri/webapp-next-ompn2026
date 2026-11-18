@@ -1,0 +1,181 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  PARTICIPANT
+  ADMIN
+}
+
+enum ExamStatus {
+  DRAFT
+  SCHEDULED
+  CLOSED
+}
+
+enum AttemptStatus {
+  IN_PROGRESS
+  SUBMITTED
+}
+
+enum SubmitReason {
+  MANUAL
+  TIMEOUT
+  ADMIN
+}
+
+model User {
+  id                 String         @id @default(cuid())
+  participantCode    String?        @unique
+  name               String
+  email              String         @unique
+  whatsapp           String         @unique
+  school             String
+  schoolNormalized   String
+  city               String
+  levelId            String?
+  level              Level?         @relation(fields: [levelId], references: [id])
+  passwordHash       String
+  mustChangePassword Boolean        @default(false)
+  passwordChangedAt  DateTime?
+  role               Role           @default(PARTICIPANT)
+  isActive           Boolean        @default(true)
+  failedLogins       Int            @default(0)
+  lockedUntil        DateTime?
+  consentAt          DateTime?
+  createdAt          DateTime       @default(now())
+  registrations      Registration[]
+  auditLogs          AuditLog[]
+
+  @@index([schoolNormalized])
+}
+
+model Level {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  name      String
+  sortOrder Int      @default(0)
+  users     User[]
+  exams     Exam[]
+}
+
+model Subject {
+  id       String   @id @default(cuid())
+  name     String   @unique
+  isActive Boolean  @default(true)
+  exams    Exam[]
+}
+
+model Exam {
+  id               String         @id @default(cuid())
+  levelId          String
+  subjectId        String
+  level            Level          @relation(fields: [levelId], references: [id])
+  subject          Subject        @relation(fields: [subjectId], references: [id])
+  title            String
+  durationMinutes  Int
+  questionCount    Int
+  optionCount      Int
+  startAt          DateTime?
+  endAt            DateTime?
+  shuffleQuestions Boolean        @default(false)
+  status           ExamStatus     @default(DRAFT)
+  resultsPublished Boolean        @default(false)
+  discussionOpen   Boolean        @default(false)
+  isActive         Boolean        @default(true)
+  questions        Question[]
+  registrations    Registration[]
+
+  @@unique([levelId, subjectId])
+}
+
+model Question {
+  id           String   @id @default(cuid())
+  examId       String
+  exam         Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
+  number       Int
+  text         String
+  options      Json
+  correctIndex Int
+  explanation  String
+  answers      Answer[]
+
+  @@unique([examId, number])
+}
+
+model Registration {
+  id        String   @id @default(cuid())
+  userId    String
+  examId    String
+  user      User     @relation(fields: [userId], references: [id])
+  exam      Exam     @relation(fields: [examId], references: [id])
+  createdAt DateTime @default(now())
+  attempt   Attempt?
+
+  @@unique([userId, examId])
+}
+
+model Attempt {
+  id              String        @id @default(cuid())
+  registrationId  String        @unique
+  registration    Registration  @relation(fields: [registrationId], references: [id])
+  startedAt       DateTime      @default(now())
+  endsAt          DateTime
+  submittedAt     DateTime?
+  status          AttemptStatus @default(IN_PROGRESS)
+  submitReason    SubmitReason?
+  correctCount    Int?
+  score           Decimal?      @db.Decimal(5, 2)
+  durationSeconds Int?
+  questionOrder   Json?
+  answers         Answer[]
+}
+
+model Answer {
+  id            String   @id @default(cuid())
+  attemptId     String
+  questionId    String
+  attempt       Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question      Question @relation(fields: [questionId], references: [id])
+  selectedIndex Int?
+  updatedAt     DateTime @updatedAt
+
+  @@unique([attemptId, questionId])
+}
+
+model Announcement {
+  id          String   @id @default(cuid())
+  title       String
+  body        String
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model ContentPage {
+  key       String   @id
+  title     String
+  body      String
+  updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  key   String @id
+  value Json
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  adminId   String
+  admin     User     @relation(fields: [adminId], references: [id])
+  action    String
+  entity    String
+  entityId  String?
+  meta      Json?
+  createdAt DateTime @default(now())
+}
