@@ -4,7 +4,8 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { registerParticipant, type RegisterState } from "@/app/actions/register";
-import { CheckCircle2, AlertCircle } from "lucide-react";
+import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { PasswordInput } from "@/components/password-input";
 
 interface ExamItem {
   id: string;
@@ -269,34 +270,26 @@ export function RegisterForm({ levels, exams }: RegisterFormProps) {
             <label className="block text-xs font-semibold text-slate-700 uppercase mb-1">
               Kata Sandi <span className="text-red-500">*</span>
             </label>
-            <input
-              type="password"
+            <PasswordInput
               name="password"
               required
               minLength={8}
               placeholder="Minimal 8 karakter"
-              className="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#0B1F4B] focus:border-transparent outline-none"
+              error={state.fieldErrors?.password?.[0]}
             />
-            {state.fieldErrors?.password && (
-              <p className="text-xs text-red-600 mt-1">{state.fieldErrors.password[0]}</p>
-            )}
           </div>
 
           <div>
             <label className="block text-xs font-semibold text-slate-700 uppercase mb-1">
               Konfirmasi Kata Sandi <span className="text-red-500">*</span>
             </label>
-            <input
-              type="password"
+            <PasswordInput
               name="confirmPassword"
               required
               minLength={8}
               placeholder="Ulangi kata sandi"
-              className="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#0B1F4B] focus:border-transparent outline-none"
+              error={state.fieldErrors?.confirmPassword?.[0]}
             />
-            {state.fieldErrors?.confirmPassword && (
-              <p className="text-xs text-red-600 mt-1">{state.fieldErrors.confirmPassword[0]}</p>
-            )}
           </div>
         </div>
       </div>
@@ -335,9 +328,16 @@ export function RegisterForm({ levels, exams }: RegisterFormProps) {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full sm:w-auto px-8 py-3 text-sm font-semibold text-white bg-[#C9A227] hover:bg-[#B38F22] rounded-lg shadow-sm transition-colors disabled:opacity-50"
+          className="w-full sm:w-auto px-8 py-3 text-sm font-semibold text-white bg-[#C9A227] hover:bg-[#B38F22] rounded-lg shadow-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
         >
-          {isPending ? "Memproses Pendaftaran..." : "Daftar Sekarang"}
+          {isPending ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Memproses Pendaftaran...
+            </>
+          ) : (
+            "Daftar Sekarang"
+          )}
         </button>
       </div>
     </form>

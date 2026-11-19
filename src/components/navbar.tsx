@@ -25,16 +25,16 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-1">
-              <span className="text-xl font-bold tracking-tight text-[#0B1F4B]">OMPN</span>
-              <span className="text-xl font-bold tracking-tight text-[#C9A227]">2026</span>
+            <Link href="/" className="flex items-center">
+              <span className="text-xl font-extrabold tracking-tight text-[#0A2558]">OMPN</span>
+              <span className="text-xl font-extrabold tracking-tight text-[#F59E0B]">2026</span>
             </Link>
             <div className="hidden md:ml-8 md:flex md:space-x-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-slate-700 hover:text-[#0B1F4B] transition-colors"
+                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-slate-700 hover:text-[#0A2558] transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -48,7 +48,7 @@ export function Navbar() {
               <div className="flex items-center gap-3">
                 <Link
                   href={dashboardUrl}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-sm font-medium text-white bg-[#0B1F4B] hover:bg-[#0B1F4B]/90 rounded-md transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-sm font-medium text-white bg-[#0A2558] hover:bg-[#0A2558]/90 rounded-md transition-colors"
                 >
                   <User className="w-4 h-4" />
                   Dashboard
@@ -66,13 +66,13 @@ export function Navbar() {
               <div className="flex items-center gap-3">
                 <Link
                   href="/login"
-                  className="px-3.5 py-1.5 text-sm font-medium text-[#0B1F4B] hover:bg-slate-50 border border-slate-300 rounded-md transition-colors"
+                  className="px-3.5 py-1.5 text-sm font-medium text-[#0A2558] hover:bg-slate-50 border border-slate-300 rounded-md transition-colors"
                 >
                   Masuk
                 </Link>
                 <Link
                   href="/daftar"
-                  className="px-3.5 py-1.5 text-sm font-medium text-white bg-[#C9A227] hover:bg-[#B38F22] rounded-md transition-colors"
+                  className="px-3.5 py-1.5 text-sm font-semibold text-[#0A2558] bg-[#F59E0B] hover:bg-[#D97706] rounded-md transition-colors"
                 >
                   Daftar Sekarang
                 </Link>
@@ -130,14 +130,14 @@ export function Navbar() {
                 <Link
                   href="/login"
                   onClick={() => setIsOpen(false)}
-                  className="w-full text-center px-4 py-2 text-sm font-medium text-[#0B1F4B] border border-slate-300 rounded-md"
+                  className="w-full text-center px-4 py-2 text-sm font-medium text-[#0A2558] border border-slate-300 rounded-md"
                 >
                   Masuk
                 </Link>
                 <Link
                   href="/daftar"
                   onClick={() => setIsOpen(false)}
-                  className="w-full text-center px-4 py-2 text-sm font-medium text-white bg-[#C9A227] rounded-md"
+                  className="w-full text-center px-4 py-2 text-sm font-semibold text-[#0A2558] bg-[#F59E0B] rounded-md"
                 >
                   Daftar Sekarang
                 </Link>

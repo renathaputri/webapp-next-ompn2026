@@ -29,25 +29,25 @@ export function Countdown({ targetDate, label, expiredMessage = "Waktu telah ber
   }
 
   return (
-    <div className="bg-[#0B1F4B] text-white rounded-xl p-6 shadow-md border border-slate-700">
-      <div className="text-xs uppercase tracking-wider text-[#C9A227] font-semibold text-center mb-3">
+    <div className="bg-[#0A2558] text-white rounded-xl p-6 shadow-md border border-[#0A2558]/50">
+      <div className="text-xs uppercase tracking-wider text-[#F59E0B] font-semibold text-center mb-3">
         {label}
       </div>
       <div className="grid grid-cols-4 gap-2 text-center max-w-sm mx-auto">
-        <div className="bg-[#0e275f] p-3 rounded-lg border border-slate-700/60">
-          <span className="block text-2xl md:text-3xl font-bold">{timeLeft.days}</span>
+        <div className="bg-[#071E4A] p-3 rounded-lg border border-white/10">
+          <span className="block text-2xl md:text-3xl font-bold text-white">{timeLeft.days}</span>
           <span className="text-[10px] md:text-xs text-slate-300 uppercase">Hari</span>
         </div>
-        <div className="bg-[#0e275f] p-3 rounded-lg border border-slate-700/60">
-          <span className="block text-2xl md:text-3xl font-bold">{String(timeLeft.hours).padStart(2, "0")}</span>
+        <div className="bg-[#071E4A] p-3 rounded-lg border border-white/10">
+          <span className="block text-2xl md:text-3xl font-bold text-white">{String(timeLeft.hours).padStart(2, "0")}</span>
           <span className="text-[10px] md:text-xs text-slate-300 uppercase">Jam</span>
         </div>
-        <div className="bg-[#0e275f] p-3 rounded-lg border border-slate-700/60">
-          <span className="block text-2xl md:text-3xl font-bold">{String(timeLeft.minutes).padStart(2, "0")}</span>
+        <div className="bg-[#071E4A] p-3 rounded-lg border border-white/10">
+          <span className="block text-2xl md:text-3xl font-bold text-white">{String(timeLeft.minutes).padStart(2, "0")}</span>
           <span className="text-[10px] md:text-xs text-slate-300 uppercase">Menit</span>
         </div>
-        <div className="bg-[#0e275f] p-3 rounded-lg border border-slate-700/60">
-          <span className="block text-2xl md:text-3xl font-bold">{String(timeLeft.seconds).padStart(2, "0")}</span>
+        <div className="bg-[#071E4A] p-3 rounded-lg border border-white/10">
+          <span className="block text-2xl md:text-3xl font-bold text-white">{String(timeLeft.seconds).padStart(2, "0")}</span>
           <span className="text-[10px] md:text-xs text-slate-300 uppercase">Detik</span>
         </div>
       </div>

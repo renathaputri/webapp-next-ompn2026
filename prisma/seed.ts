@@ -156,6 +156,7 @@ Data pribadi digunakan semata-mata untuk verifikasi kepesertaan, komunikasi admi
     update: {
       role: Role.ADMIN,
       isActive: true,
+      mustChangePassword: false,
     },
     create: {
       name: "Administrator OMPN",
@@ -166,12 +167,12 @@ Data pribadi digunakan semata-mata untuk verifikasi kepesertaan, komunikasi admi
       city: "Jakarta",
       passwordHash,
       role: Role.ADMIN,
-      mustChangePassword: true,
+      mustChangePassword: false,
       isActive: true,
       consentAt: new Date(),
     },
   });
-  console.log(`Akun admin (${adminEmail}) berhasil di-seed dengan mustChangePassword = true.`);
+  console.log(`Akun admin (${adminEmail}) berhasil di-seed.`);
   console.log("Proses seeding selesai.");
 }
 

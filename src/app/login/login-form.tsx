@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import { PasswordInput } from "@/components/password-input";
 
 export function LoginForm() {
   const router = useRouter();
@@ -30,13 +31,13 @@ export function LoginForm() {
 
       if (res?.error) {
         setError("Alamat email atau kata sandi yang Anda masukkan tidak sesuai.");
+        setIsLoading(false);
       } else {
         router.push("/dashboard");
         router.refresh();
       }
     } catch {
       setError("Terjadi kendala koneksi ke server. Silakan coba lagi.");
-    } finally {
       setIsLoading(false);
     }
   };
@@ -68,7 +69,7 @@ export function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="nama@email.com"
-            className="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#0B1F4B] focus:border-transparent outline-none"
+            className="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#0A2558] focus:border-transparent outline-none"
           />
         </div>
 
@@ -79,33 +80,38 @@ export function LoginForm() {
             </label>
             <Link
               href="/lupa-password"
-              className="text-xs text-[#0B1F4B] hover:text-[#C9A227] hover:underline"
+              className="text-xs text-[#0A2558] hover:text-[#F59E0B] hover:underline"
             >
               Lupa kata sandi?
             </Link>
           </div>
-          <input
-            type="password"
+          <PasswordInput
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Masukkan kata sandi akun"
-            className="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#0B1F4B] focus:border-transparent outline-none"
           />
         </div>
 
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full py-2.5 px-4 text-sm font-semibold text-white bg-[#0B1F4B] hover:bg-[#0B1F4B]/90 rounded-lg shadow-sm transition-colors disabled:opacity-50"
+          className="w-full py-2.5 px-4 text-sm font-semibold text-white bg-[#0A2558] hover:bg-[#0A2558]/90 rounded-lg shadow-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
         >
-          {isLoading ? "Memeriksa Akun..." : "Masuk"}
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Memeriksa Akun...
+            </>
+          ) : (
+            "Masuk"
+          )}
         </button>
       </form>
 
       <div className="pt-4 border-t border-slate-100 text-center text-xs text-slate-600">
         Belum memiliki akun peserta?{" "}
-        <Link href="/daftar" className="text-[#0B1F4B] font-semibold underline hover:text-[#C9A227]">
+        <Link href="/daftar" className="text-[#0A2558] font-semibold underline hover:text-[#F59E0B]">
           Daftar sekarang
         </Link>
       </div>

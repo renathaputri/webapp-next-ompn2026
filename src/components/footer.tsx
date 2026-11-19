@@ -9,10 +9,10 @@ export function Footer() {
           <div className="md:col-span-2 space-y-3">
             <div className="flex items-center gap-1">
               <span className="text-xl font-bold tracking-tight text-white">OMPN</span>
-              <span className="text-xl font-bold tracking-tight text-[#C9A227]">2026</span>
+              <span className="text-xl font-bold tracking-tight text-[#F59E0B]">2026</span>
             </div>
             <p className="text-sm text-slate-400 max-w-md leading-relaxed">
-              Platform Resmi Olimpiade Matematika dan Pengetahuan Nasional 2026. Wadah kompetisi akademik daring berintegritas untuk siswa jenjang SD, SMP, dan SMA di seluruh Indonesia.
+              Platform Resmi Olimpiade Mata Pelajaran Nasional 2026. Diselenggarakan oleh YNF.production dengan semangat &ldquo;Berprestasi, Berkompetisi, dan Menginspirasi&rdquo; untuk Indonesia Emas. Wadah kompetisi akademik daring berintegritas untuk siswa jenjang SD, SMP, dan SMA di seluruh Indonesia.
             </p>
           </div>
 

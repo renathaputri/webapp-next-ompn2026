@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { AlertCircle, Lock } from "lucide-react";
+import { AlertCircle, Lock, Loader2 } from "lucide-react";
+import { PasswordInput } from "@/components/password-input";
 
 export function AdminLoginForm() {
   const router = useRouter();
@@ -27,25 +28,25 @@ export function AdminLoginForm() {
 
       if (res?.error) {
         setError("Alamat email atau kata sandi administrator tidak sesuai.");
+        setIsLoading(false);
       } else {
         router.push("/admin");
         router.refresh();
       }
     } catch {
       setError("Terjadi kendala sistem. Silakan coba lagi.");
-    } finally {
       setIsLoading(false);
     }
   };
 
   return (
     <div className="bg-white p-8 md:p-10 rounded-xl border border-slate-200 shadow-sm space-y-6">
-      <div className="w-12 h-12 rounded-lg bg-[#0B1F4B] text-white flex items-center justify-center mx-auto">
-        <Lock className="w-6 h-6 text-[#C9A227]" />
+      <div className="w-12 h-12 rounded-lg bg-[#0A2558] text-white flex items-center justify-center mx-auto">
+        <Lock className="w-6 h-6 text-[#F59E0B]" />
       </div>
 
       <div className="text-center">
-        <h1 className="text-xl font-bold text-[#0B1F4B]">Portal Administrator</h1>
+        <h1 className="text-xl font-bold text-[#0A2558]">Portal Administrator</h1>
         <p className="text-xs text-slate-500 mt-1">Area terbatas khusus panitia dan pengelola sistem</p>
       </div>
 
@@ -67,7 +68,7 @@ export function AdminLoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="admin@ompn2026.id"
-            className="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#0B1F4B] focus:border-transparent outline-none"
+            className="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#0A2558] focus:border-transparent outline-none"
           />
         </div>
 
@@ -75,22 +76,27 @@ export function AdminLoginForm() {
           <label className="block text-xs font-semibold text-slate-700 uppercase mb-1">
             Kata Sandi
           </label>
-          <input
-            type="password"
+          <PasswordInput
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Minimal 12 karakter"
-            className="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#0B1F4B] focus:border-transparent outline-none"
+            placeholder="Masukkan kata sandi"
           />
         </div>
 
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full py-2.5 px-4 text-sm font-semibold text-white bg-[#0B1F4B] hover:bg-[#0B1F4B]/90 rounded-lg shadow-sm transition-colors disabled:opacity-50"
+          className="w-full py-2.5 px-4 text-sm font-semibold text-white bg-[#0A2558] hover:bg-[#0A2558]/90 rounded-lg shadow-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
         >
-          {isLoading ? "Memverifikasi Otorisasi..." : "Masuk ke Panel Admin"}
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Memverifikasi...
+            </>
+          ) : (
+            "Masuk ke Panel Admin"
+          )}
         </button>
       </form>
     </div>

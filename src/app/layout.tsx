@@ -12,8 +12,9 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "OMPN2026 - Olimpiade Online",
-  description: "Platform Resmi Olimpiade Matematika dan Pengetahuan Nasional 2026",
+  title: "OMPN 2026 - Olimpiade Mata Pelajaran Nasional",
+  description:
+    "Platform Resmi Olimpiade Mata Pelajaran Nasional 2026. Berprestasi, Berkompetisi, dan Menginspirasi untuk Indonesia Emas.",
 };
 
 export default function RootLayout({
